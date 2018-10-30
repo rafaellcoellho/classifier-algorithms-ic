@@ -165,13 +165,33 @@ function euclidianDistance(dataPoint1, dataPoint2){
     )
 }
 
-function nearestNeighbourAlgorithm(dataset, dataPoint){
+function nearestNeighborAlgorithm(dataset, dataPoint){
     const dist = dataset
         .map( data => [ euclidianDistance(dataPoint, data), data[4] ] )
-        .sort( )
+        .sort()
     
-    return dist[0]
+    return dist[0][1]
 }
 
-console.log( nearestNeighbourAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9]) )
+function kNearestNeighborAlgorithm(dataset, dataPoint, k){
+    const dist = dataset
+        .map( data => [ euclidianDistance(dataPoint, data), data[4] ] )
+        .sort()
+    
+    const kNeighbor = dist
+        .slice(0, k)
+
+    let speciesOfNeighbor = {"setosa":0,"versicolor":0,"virginica":0}
+    kNeighbor.forEach( neighbor => {
+        speciesOfNeighbor[neighbor[1]] += 1    
+    })
+
+    const label = Object.keys(speciesOfNeighbor)
+        .reduce( (a, b) => speciesOfNeighbor[a] > speciesOfNeighbor[b] ? a : b )
+
+    return label
+}
+
+console.log( nearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9]) )
+console.log( kNearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9], 10) )
 
