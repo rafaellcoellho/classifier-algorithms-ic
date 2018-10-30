@@ -192,6 +192,29 @@ function kNearestNeighborAlgorithm(dataset, dataPoint, k){
     return label
 }
 
-console.log( nearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9]) )
-console.log( kNearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9], 10) )
+function showClassification(){
+    const userFlower = [
+        parseFloat(document.getElementById("sepal-length").value),
+        parseFloat(document.getElementById("sepal-width").value),
+        parseFloat(document.getElementById("petal-length").value),
+        parseFloat(document.getElementById("petal-width").value)
+    ]
+    const k = parseFloat(document.getElementById("k").value)
+
+    let label;
+    if (document.getElementById('method-nn').checked) {
+        label = nearestNeighborAlgorithm(datasetSpecies, userFlower)
+    } else if (document.getElementById('method-knn').checked) {
+        label = kNearestNeighborAlgorithm(datasetSpecies, userFlower, k)
+    } else if (document.getElementById('method-dmc').checked) {
+        
+    }
+
+    console.log(userFlower)
+    console.log(k)
+    document.getElementById('label').innerHTML = label;
+}
+
+// console.log( nearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9]) )
+// console.log( kNearestNeighborAlgorithm(datasetSpecies, [5.9 ,3.0, 5.1, 1.9], 10) )
 
