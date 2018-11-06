@@ -190,10 +190,12 @@ function kNearestNeighborAlgorithm (dataset, dataPoint, k) {
 
 function dmc (dataset, dataPoint) {
   const getAverage = (total, current, index, data) => {
+    // Faz o somatório total
     total = current
       .map((x, i) => x + total[i])
 
     if (index === data.length - 1) {
+      // Caso seja o ultimo, retorna a média
       return [
         total[0] / data.length,
         total[1] / data.length,
@@ -212,18 +214,14 @@ function dmc (dataset, dataPoint) {
   const averageVersicolor = dataset
     .filter(data => data[4] === 'versicolor')
     .reduce(getAverage)
-  
+
   const averageVirginica = dataset
     .filter(data => data[4] === 'virginica')
     .reduce(getAverage)
 
   const averageArray = [averageSetosa, averageVersicolor, averageVirginica]
 
-  const dist = averageArray
-    .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
-    .sort()
-
-  return dist[0][1]
+  return nearestNeighborAlgorithm(averageArray, dataPoint)
 }
 
 console.log(nearestNeighborAlgorithm(datasetSpecies, [5.9, 3.0, 5.1, 1.9]))
