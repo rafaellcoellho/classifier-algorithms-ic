@@ -188,5 +188,44 @@ function kNearestNeighborAlgorithm (dataset, dataPoint, k) {
   return label
 }
 
+function dmc (dataset, dataPoint) {
+  const getAverage = (total, current, index, data) => {
+    total = current
+      .map((x, i) => x + total[i])
+
+    if (index === data.length - 1) {
+      return [
+        total[0] / data.length,
+        total[1] / data.length,
+        total[2] / data.length,
+        total[3] / data.length,
+        current[4]]
+    } else {
+      return total
+    }
+  }
+
+  const averageSetosa = dataset
+    .filter(data => data[4] === 'setosa')
+    .reduce(getAverage)
+
+  const averageVersicolor = dataset
+    .filter(data => data[4] === 'versicolor')
+    .reduce(getAverage)
+  
+  const averageVirginica = dataset
+    .filter(data => data[4] === 'virginica')
+    .reduce(getAverage)
+
+  const averageArray = [averageSetosa, averageVersicolor, averageVirginica]
+
+  const dist = averageArray
+    .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
+    .sort()
+
+  return dist[0][1]
+}
+
 console.log(nearestNeighborAlgorithm(datasetSpecies, [5.9, 3.0, 5.1, 1.9]))
 console.log(kNearestNeighborAlgorithm(datasetSpecies, [5.9, 3.0, 5.1, 1.9], 10))
+console.log(dmc(datasetSpecies, [5.9, 3.0, 5.1, 1.9]))
