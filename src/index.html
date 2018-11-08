@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8"> 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -12,18 +13,18 @@
 
   <body>
     <div class="container" style="border: 1px;border-style: solid; border-radius: 25px; margin-top: 10px">
-      <!-- Título -->
+      <!-- Titulo -->
       <div class="row">
         <div style="text-align: center"> 
           <h1>Iris Flower Classifier</h1>
           <div class="divider"></div>
         </div>
       </div>
-      <!-- Conteúdo -->
+      <!-- Conteudo -->
       <div class="row">
         <!-- Form para entrar com os dados -->
         <div class="col s6">
-          <!-- Título do form -->
+          <!-- Titulo do form -->
           <div class="row">
             <div  style="text-align: center">
               <h2>Attributes</h2>
@@ -55,7 +56,7 @@
           <!-- Selecionar algoritmo utilizado -->
           <div class="row">
             <div class="input-field col s12">
-              <select class="browser-default">
+              <select class="browser-default" id="algorithm">
                 <option value="" disabled selected>Algorithm used to classify</option>
                 <option value="nn">nearest neighbors</option>
                 <option value="knn">k-nearest neighbors</option>
@@ -63,25 +64,28 @@
               </select>
             </div>
           </div>
-          <!-- Botão -->
+          <!-- Botao -->
           <div class="row">
             <div class="input-field col s4 offset-s4">
-              <button class="btn waves-effect waves-light" type="submit" name="action">Classify</button>
+              <button onclick="main()" class="btn waves-effect waves-light" type="submit" name="action">Classify</button>
             </div>
           </div>
         </div>
-        <!-- Demonstração do resultado -->
+        <!-- Demonstracao do resultado -->
         <div class="col s6">
           <!-- Mostra a foto -->
           <div class="row" style="margin-top: 90px">
             <div class="col s6 offset-s3">
-              <img caption class="responsive-img circle" src="../imgs/placeholder.jpg" style="height: 210px;width: 210px;border-style: solid;">
-              <p style="text-align: center">-</p>
+              <img id="flower_image" class="responsive-img circle" src="../imgs/placeholder.jpg" style="height: 210px;width: 210px;border-style: solid;">
+              <p style="text-align: center" id="result">-</p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <script src="materialize-v1.0.0/js/materialize.min.js"></script>
+    <script src="dataset.js"></script>
+    <script src="classifiers.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

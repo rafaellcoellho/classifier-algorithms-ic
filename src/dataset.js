@@ -1,5 +1,5 @@
 // [Comprimento da Sepala, Largura da Sepala, Comprimento da Petala, Largura da Petala, Espécie]
-exports.datasetSpecies = [
+const datasetSpecies = [
   [4.9, 3.0, 1.4, 0.2, 'setosa'],
   [4.7, 3.2, 1.3, 0.2, 'setosa'],
   [4.6, 3.1, 1.5, 0.2, 'setosa'],

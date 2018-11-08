@@ -7,65 +7,65 @@ function euclidianDistance (dataPoint1, dataPoint2) {
   )
 }
 
-module.exports = {
-  nearestNeighborAlgorithm: (dataset, dataPoint) => {
-    const dist = dataset
-      .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
-      .sort()
+function nearestNeighborAlgorithm (dataset, dataPoint) {
+  const dist = dataset
+    .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
+    .sort()
 
-    return dist[0][1]
-  },
-  kNearestNeighborAlgorithm: (dataset, dataPoint, k) => {
-    const dist = dataset
-      .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
-      .sort()
+  return dist[0][1]
+}
 
-    const kNeighbor = dist
-      .slice(0, k)
+function kNearestNeighborAlgorithm (dataset, dataPoint, k) {
+  const dist = dataset
+    .map(data => [ euclidianDistance(dataPoint, data), data[4] ])
+    .sort()
 
-    let speciesOfNeighbor = { 'setosa': 0, 'versicolor': 0, 'virginica': 0 }
-    kNeighbor.forEach(neighbor => {
-      speciesOfNeighbor[neighbor[1]] += 1
-    })
+  const kNeighbor = dist
+    .slice(0, k)
 
-    const label = Object.keys(speciesOfNeighbor)
-      .reduce((a, b) => speciesOfNeighbor[a] > speciesOfNeighbor[b] ? a : b)
+  let speciesOfNeighbor = { 'setosa': 0, 'versicolor': 0, 'virginica': 0 }
+  kNeighbor.forEach(neighbor => {
+    speciesOfNeighbor[neighbor[1]] += 1
+  })
 
-    return label
-  },
-  dmc: (dataset, dataPoint) => {
-    const getAverage = (total, current, index, data) => {
-      // Faz o somatório total
-      total = current
-        .map((x, i) => x + total[i])
+  const label = Object.keys(speciesOfNeighbor)
+    .reduce((a, b) => speciesOfNeighbor[a] > speciesOfNeighbor[b] ? a : b)
 
-      if (index === data.length - 1) {
-        // Caso seja o ultimo, retorna a média
-        return [
-          total[0] / data.length,
-          total[1] / data.length,
-          total[2] / data.length,
-          total[3] / data.length,
-          current[4]]
-      } else {
-        return total
-      }
+  return label
+}
+
+function dmc (dataset, dataPoint) {
+  const getAverage = (total, current, index, data) => {
+    // Faz o somatório total
+    total = current
+      .map((x, i) => x + total[i])
+
+    if (index === data.length - 1) {
+      // Caso seja o ultimo, retorna a média
+      return [
+        total[0] / data.length,
+        total[1] / data.length,
+        total[2] / data.length,
+        total[3] / data.length,
+        current[4]]
+    } else {
+      return total
     }
-
-    const averageSetosa = dataset
-      .filter(data => data[4] === 'setosa')
-      .reduce(getAverage)
-
-    const averageVersicolor = dataset
-      .filter(data => data[4] === 'versicolor')
-      .reduce(getAverage)
-
-    const averageVirginica = dataset
-      .filter(data => data[4] === 'virginica')
-      .reduce(getAverage)
-
-    const averageArray = [averageSetosa, averageVersicolor, averageVirginica]
-
-    return module.exports.nearestNeighborAlgorithm(averageArray, dataPoint)
   }
+
+  const averageSetosa = dataset
+    .filter(data => data[4] === 'setosa')
+    .reduce(getAverage)
+
+  const averageVersicolor = dataset
+    .filter(data => data[4] === 'versicolor')
+    .reduce(getAverage)
+
+  const averageVirginica = dataset
+    .filter(data => data[4] === 'virginica')
+    .reduce(getAverage)
+
+  const averageArray = [averageSetosa, averageVersicolor, averageVirginica]
+
+  return nearestNeighborAlgorithm(averageArray, dataPoint)
 }
