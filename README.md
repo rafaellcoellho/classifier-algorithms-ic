@@ -1,4 +1,4 @@
-# 8-Puzzle
+# Iris Flower Classifier
 
 This program implement a classic iris flower classifier using nn, knn and dmc algorithms. This is part of an exercise from computational intelligence class.
 
